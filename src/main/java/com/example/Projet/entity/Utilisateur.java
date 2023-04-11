@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,5 +26,10 @@ public class Utilisateur {
     private String email;
 
     private String mot_de_passe;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "utilisateur_role",joinColumns = @JoinColumn(name = "id_utilisateur", referencedColumnName = "id_utilisateur"),
+            inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id_role"))
+    private List<Role> roles = new ArrayList<>();
 
 }

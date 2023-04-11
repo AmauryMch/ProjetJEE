@@ -1,8 +1,10 @@
 package com.example.Projet.controller;
 
 import com.example.Projet.entity.Activite;
+import com.example.Projet.entity.Role;
 import com.example.Projet.entity.Utilisateur;
 import com.example.Projet.service.ActiviteService;
+import com.example.Projet.service.RoleService;
 import com.example.Projet.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ public class Controller {
 
     @Autowired
     private UtilisateurService utilisateurService;
+
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/")
     public String home() {
@@ -63,8 +68,11 @@ public class Controller {
 
     @PostMapping("/formInscription")
     public String addUtilisateur(String nom, String prenom, String email, String motDePasse) {
-        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse);
+        Role role = roleService.findByNom("USER");
+        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, null);
         utilisateurService.enregistreUtilisateur(utilisateur);
+        utilisateur.getRoles().add(roleService.findByNom("USER"));
+
         return "redirect:/utilisateurs";
     }
 
