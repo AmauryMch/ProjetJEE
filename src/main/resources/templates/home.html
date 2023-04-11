@@ -5,12 +5,13 @@
     <title>Page d'accueil</title>
 </head>
 <body>
-<h1>Bienvenue sur notre site</h1>
-<p>Que voulez-vous faire aujourd'hui ?</p>
+<h1 th:text="${username}">Bienvenue sur notre site</h1>
+
 <ul>
-    <li><a href="formInscription.html">S'inscrire</a></li>
-    <li><a href="formConnexion.html">Se connecter</a></li>
-    <li><a href="activities.html">Voir la liste d'activités</a></li>
+    <li><a href="/utilisateur/add">S'inscrire</a></li>
+    <li><a href="connexion">Se connecter</a></li>
+    <li><a href="activites">Voir la liste d'activités</a></li>
+    <li><a href="/activite/add">Ajouter activités</a></li>
 </ul>
 </body>
 </html>

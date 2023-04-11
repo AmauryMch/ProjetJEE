@@ -5,6 +5,8 @@ import com.example.Projet.entity.Utilisateur;
 import com.example.Projet.service.ActiviteService;
 import com.example.Projet.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,7 @@ public class Controller {
     private UtilisateurService utilisateurService;
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
         return "home";
     }
 
@@ -72,10 +74,10 @@ public class Controller {
     public String connexion(String email, String motDePasse, Model model) {
         Utilisateur utilisateur = utilisateurService.findByEmail(email);
         if (utilisateur != null && utilisateur.getMot_de_passe().equals(motDePasse)) {
-            return "redirect:/activites";
+            return "redirect:/home";
         } else {
             model.addAttribute("erreur", "Email ou mot de passe invalide.");
-            return "formconnexion";
+            return "formConnexion";
         }
     }
 
