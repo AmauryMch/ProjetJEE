@@ -51,7 +51,7 @@ public class Controller {
 
     @GetMapping("/utilisateur/add")
     public String showFormUtilisateur() {
-        return "formUtilisateur";
+        return "formInscription";
     }
 
     @PostMapping("/formActivite")
@@ -61,7 +61,7 @@ public class Controller {
         return "redirect:/activites";
     }
 
-    @PostMapping("/formUtilisateur")
+    @PostMapping("/formInscription")
     public String addUtilisateur(String nom, String prenom, String email, String motDePasse) {
         Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse);
         utilisateurService.enregistreUtilisateur(utilisateur);
