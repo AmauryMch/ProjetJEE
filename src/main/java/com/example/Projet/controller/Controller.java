@@ -23,7 +23,7 @@ public class Controller {
     private UtilisateurService utilisateurService;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home() {
         return "home";
     }
 
