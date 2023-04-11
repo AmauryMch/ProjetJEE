@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+</head>
+<body>
+<h1>Connexion</h1>
+<form method="post" th:action="@{/formConnexion}">
+    <label>Email :</label>
+    <input type="text" name="email"><br><br>
+    <label>Mot de passe :</label>
+    <input type="password" name="motDePasse"><br><br>
+    <button type="submit">Se connecter</button>
+</form>
+</body>
+</html>
