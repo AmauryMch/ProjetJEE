@@ -5,10 +5,10 @@
     <title>Page d'accueil</title>
 </head>
 <body>
-<h1>Bienvenue sur notre site</h1>
+<h1 th:text="${user.email}"></h1>
 
 <ul>
-    <li><a href="/utilisateur/add">S'inscrire</a></li>
+    <li><a href="/inscription">S'inscrire</a></li>
     <li><a href="connexion">Se connecter</a></li>
     <li><a href="activites">Voir la liste d'activités</a></li>
     <li><a href="/activite/add">Ajouter activités</a></li>

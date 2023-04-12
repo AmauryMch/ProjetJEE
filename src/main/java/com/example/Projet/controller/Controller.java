@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
@@ -21,11 +23,6 @@ public class Controller {
 
     @Autowired
     private UtilisateurService utilisateurService;
-
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
 
     @GetMapping("/activites")
     public String afficherActivites(Model model) {
@@ -41,6 +38,14 @@ public class Controller {
         return "utilisateurs";
     }
 
+    @GetMapping("/")
+    public String home(HttpServletRequest request, Model model) {
+        String s= request.getSession().getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(s);
+        model.addAttribute("user",u);
+        return "home";
+    }
+
     @GetMapping("/connexion")
     public String connexion() {
         return "formConnexion";
@@ -51,7 +56,7 @@ public class Controller {
         return "formActivite";
     }
 
-    @GetMapping("/utilisateur/add")
+    @GetMapping("/inscription")
     public String showFormUtilisateur() {
         return "formInscription";
     }
@@ -71,10 +76,13 @@ public class Controller {
     }
 
     @PostMapping("/formConnexion")
-    public String connexion(String email, String motDePasse, Model model) {
+    public String connexion(String email, String motDePasse, Model model, HttpSession s) {
+        HttpSession session = s;
         Utilisateur utilisateur = utilisateurService.findByEmail(email);
         if (utilisateur != null && utilisateur.getMot_de_passe().equals(motDePasse)) {
-            return "redirect:/home";
+            model.addAttribute("User", utilisateur);
+            session.setAttribute("email", utilisateur.getEmail());
+            return "redirect:/";
         } else {
             model.addAttribute("erreur", "Email ou mot de passe invalide.");
             return "formConnexion";
