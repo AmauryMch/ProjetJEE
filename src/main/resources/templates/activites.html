@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Liste des activités</title>
+    <meta charset="UTF-8">
+    <title>Liste des activités</title>
 </head>
 <body>
 <h1>Liste des activités</h1>
 <table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Nom</th>
-    <th>Description</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="activite : ${activite}">
-    <td th:text="${activite.id_activite}"></td>
-    <td th:text="${activite.nom_activite}"></td>
-    <td th:text="${activite.description_activite}"></td>
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="activite : ${activite}">
+        <td th:text="${activite.id_activite}"></td>
+        <td th:text="${activite.nom_activite}"></td>
+        <td th:text="${activite.description_activite}"></td>
+        <td>
+            <button type="submit">Ajouter</button>
+        </td>
+    </tr>
+    </tbody>
 </table>
 </body>
 </html>

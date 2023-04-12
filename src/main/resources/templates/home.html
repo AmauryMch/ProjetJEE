@@ -5,7 +5,10 @@
     <title>Page d'accueil</title>
 </head>
 <body>
-<h1 th:text="${user.email}"></h1>
+
+<h1>Bienvenue <span th:text="${session.nom}"></span>
+    <span th:text="${session.prenom}"></span>
+</h1>
 
 <ul>
     <li><a href="/inscription">S'inscrire</a></li>
