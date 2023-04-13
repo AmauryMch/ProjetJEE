@@ -24,4 +24,5 @@ public class Programme {
     @ManyToOne
     @JoinColumn(name = "id_activité")
     private Activite activite;
+
 }

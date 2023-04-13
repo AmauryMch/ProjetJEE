@@ -21,5 +21,7 @@ public class ProjetApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "admin", "admin", "admin", "admin", "ADMIN"));
+		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Mechin", "Amaury", "amaury@email.fr", "user", "USER"));
+		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Bardel", "François", "francois@email.fr", "user", "USER"));
 	}
 }

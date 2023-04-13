@@ -24,13 +24,6 @@ public class Controller {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @GetMapping("/activites")
-    public String afficherActivites(Model model) {
-        List<Activite> activite = activiteService.getAllActivites();
-        model.addAttribute("activite", activite);
-        return "activites";
-    }
-
     @GetMapping("/utilisateurs")
     public String afficherUtilisateurs(Model model) {
         List<Utilisateur> utilisateur = utilisateurService.getAllUtilisateurs();
@@ -44,7 +37,10 @@ public class Controller {
             String s = request.getSession().getAttribute("email").toString();
             Utilisateur u = utilisateurService.findByEmail(s);
             model.addAttribute("user", u);
+
         }
+        List<Activite> activite = activiteService.getAllActivites();
+        model.addAttribute("activite", activite);
         return "home";
     }
 
@@ -67,7 +63,7 @@ public class Controller {
     public String addActivite(String nom_activite, String description_activite) {
         Activite activite = new Activite(null, nom_activite, description_activite);
         activiteService.enregistrerActivite(activite);
-        return "redirect:/activites";
+        return "redirect:/";
     }
 
     @PostMapping("/formInscription")
@@ -93,6 +89,18 @@ public class Controller {
             model.addAttribute("erreur", "Email ou mot de passe invalide.");
             return "formConnexion";
         }
+    }
+    @GetMapping("/profils")
+    public String profil(){
+        return "profil";
+    }
+
+    @PostMapping("/add")
+    public String ajoutProgramme(Model model, HttpSession s){
+        Long id_u = (Long) s.getAttribute("id");
+
+
+        return "/profil";
     }
 
 
