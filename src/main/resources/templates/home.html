@@ -42,8 +42,8 @@
     <tr th:each="activite : ${activite}">
         <form th:action="@{/add}" method="post">
             <td th:text="${activite.id_activite}"></td>
-            <td><input type="hidden" name="nom" th:value="${activite.nom_activite}"></td>
-            <td th:text="${activite.nom_activite}"></td>
+            <td><input type="hidden" name="nom" th:value="${activite.nom}"></td>
+            <td th:text="${activite.nom}"></td>
             <td th:text="${activite.description_activite}"></td>
             <td>
                 <button th:if="${session.nom} != null" type="submit">Ajouter</button>

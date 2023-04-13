@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,4 +27,5 @@ public class Utilisateur {
     private String mot_de_passe;
 
     private String role;
+
 }

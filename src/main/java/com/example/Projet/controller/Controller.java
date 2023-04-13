@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static java.lang.Long.parseLong;
-
 @org.springframework.stereotype.Controller
 public class Controller {
 
@@ -62,8 +60,8 @@ public class Controller {
     }
 
     @PostMapping("/formActivite")
-    public String addActivite(String nom_activite, String description_activite) {
-        Activite activite = new Activite(null, nom_activite, description_activite);
+    public String addActivite(String nom, String description_activite) {
+        Activite activite = new Activite(null, nom, description_activite);
         activiteService.enregistrerActivite(activite);
         return "redirect:/";
     }
@@ -99,9 +97,7 @@ public class Controller {
 
     @PostMapping("/add")
     public String ajoutProgramme(String nom, Model model, HttpSession s){
-        System.out.println(activiteService.findActiviteByNom_activite(nom));
+        System.out.println(activiteService.findByNom(nom));
         return "redirect:/profil";
     }
-
-
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,8 +22,8 @@ public class Programme {
     @JoinColumn(name = "id_utilisateur")
     private Utilisateur utilisateur;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "id_activité")
-    private Activite activite;
+    private List<Activite> activites;
 
 }

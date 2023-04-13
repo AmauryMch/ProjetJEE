@@ -17,7 +17,7 @@ public class Activite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_activite;
 
-    private String nom_activite;
+    private String nom;
 
     private String description_activite;
 }
