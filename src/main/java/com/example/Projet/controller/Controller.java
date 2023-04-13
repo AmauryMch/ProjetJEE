@@ -39,11 +39,15 @@ public class Controller {
     }
 
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model) {
+    public String home(HttpServletRequest request, Model model, HttpSession s) {
         if(request.getSession().equals(null)) {
-            String s = request.getSession().getAttribute("email").toString();
-            Utilisateur u = utilisateurService.findByEmail(s);
+            String emailRequest = request.getSession().getAttribute("email").toString();
+
+            Utilisateur u = utilisateurService.findByEmail(emailRequest);
             model.addAttribute("user", u);
+
+            List<Programme> p = u.getProgrammes();
+            model.addAttribute("programmes", p);
 
         }
         List<Activite> activite = activiteService.getAllActivites();
