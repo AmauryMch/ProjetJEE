@@ -19,8 +19,8 @@
     <ul class="navbar-nav ml-auto">
         <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary" href="/connexion">Connexion</a>
         </li>
-        <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary"
-                                                               href="/inscription">Inscription</a></li>
+        <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary" href="/inscription">Inscription</a></li>
+        <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/logout">Deconnexion</a></li>
     </ul>
 </nav>
 <!--------------------Fin Navbar----------------->

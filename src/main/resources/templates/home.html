@@ -22,6 +22,7 @@
         <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary"
                                                                href="/inscription">Inscription</a></li>
         <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/profil">Profil</a></li>
+        <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/logout">Deconnexion</a></li>
     </ul>
 </nav>
 <!--------------------Fin Navbar----------------->
@@ -29,33 +30,34 @@
 <h1>Bienvenue <span th:text="${session.nom}"></span>
     <span th:text="${session.prenom}"></span>
 </h1>
-
+<form th:action="@{/add}" method="post">
 <table>
     <thead>
     <tr>
         <th>ID</th>
         <th>Nom</th>
         <th>Description</th>
+        <th th:if="${session.nom}!= null">Options</th>
+        <th th:if="${session.nom}!= null">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="activite : ${activite}">
-        <form th:action="@{/add}" method="post">
-            <td th:text="${activite.id_activite}"></td>
-            <td><input type="hidden" name="nom" th:value="${activite.nom}"></td>
-            <td th:text="${activite.nom}"></td>
-            <td th:text="${activite.description_activite}"></td>
-            <td>
-                <select>
-                    <option th:each="programme : ${programmes}" th:value="${programme.nom}" th:text="feur"></option>
-                </select>
-            </td>
-            <td>
-                <button th:if="${session.nom} != null" type="submit">Ajouter</button>
-            </td>
-        </form>
+        <td><span th:text="${activite.id_activite}"></span></td>
+        <td><input type="hidden" name="nom" th:value="${activite.nom}"/><span th:text="${activite.nom}"></span></td>
+        <td><span th:text="${activite.description_activite}"></span></td>
+        <td>
+            <select name="options" id="options" th:if="${session.nom}!= null">
+                <option value="">Sélectionnez une option</option>
+                <option th:each="programme : ${ListeProgrammes}" th:value="${programme.nom}" th:text="${programme.nom}"></option>
+            </select>
+        </td>
+        <td>
+            <button th:if="${session.nom} != null" type="submit">Ajouter</button>
+        </td>
     </tr>
     </tbody>
 </table>
+</form>
 </body>
 </html>

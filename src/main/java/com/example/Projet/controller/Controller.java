@@ -39,15 +39,15 @@ public class Controller {
     }
 
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model, HttpSession s) {
-        if(request.getSession().equals(null)) {
-            String emailRequest = request.getSession().getAttribute("email").toString();
+    public String home(Model model, HttpSession s) {
+        if(s.equals(null)) {
+            String email = s.getAttribute("email").toString();
 
-            Utilisateur u = utilisateurService.findByEmail(emailRequest);
+            Utilisateur u = utilisateurService.findByEmail(email);
             model.addAttribute("user", u);
 
             List<Programme> p = u.getProgrammes();
-            model.addAttribute("programmes", p);
+            model.addAttribute("ListeProgrammes", p);
 
         }
         List<Activite> activite = activiteService.getAllActivites();
@@ -100,7 +100,7 @@ public class Controller {
             return "redirect:/";
         } else {
             model.addAttribute("erreur", "Email ou mot de passe invalide.");
-            return "formConnexion";
+            return "home";
         }
     }
     @GetMapping("/profil")
@@ -130,5 +130,11 @@ public class Controller {
         u.setProgrammes(pl);
         utilisateurService.enregistreUtilisateur(u);
         return "redirect:/profil";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "/connexion";
     }
 }
