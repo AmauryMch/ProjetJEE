@@ -11,7 +11,7 @@
 </h1>
 
 <ul>
-    <li><a href="/inscription">S'inscrire</a></li>
+    <li th:if="${session.nom} == null"><a href="/inscription">S'inscrire</a></li>
     <li><a href="connexion">Se connecter</a></li>
     <li><a href="activites">Voir la liste d'activités</a></li>
     <li><a href="/activite/add">Ajouter activités</a></li>
