@@ -20,5 +20,9 @@ public class Activite {
     private String nom;
 
     private String description_activite;
+
+    @ManyToOne
+    @JoinColumn(name = "id_programme")
+    private Programme programme;
 }
 

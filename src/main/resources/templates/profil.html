@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profil</title>
 </head>
 <body>
+<tr th:each="programmes : ${programmes}">
+    <td th:text="${programmes.nom}"></td>
+</tr>
 
+
+
+<form method="post" th:action="@{/newProgramme}">
+    <label>Nom :</label>
+    <input type="text" name="nom"><br><br>
+    <button type="submit">Ajouter</button>
+</form>
 </body>
 </html>

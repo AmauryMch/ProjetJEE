@@ -18,12 +18,13 @@ public class Programme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_programme;
 
+    private String nom;
+
     @ManyToOne
     @JoinColumn(name = "id_utilisateur")
     private Utilisateur utilisateur;
 
-    @OneToMany
-    @JoinColumn(name = "id_activité")
+    @OneToMany(mappedBy = "programme")
     private List<Activite> activites;
 
 }

@@ -28,4 +28,6 @@ public class Utilisateur {
 
     private String role;
 
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Programme> programmes;
 }
