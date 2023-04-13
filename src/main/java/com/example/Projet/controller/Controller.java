@@ -72,7 +72,7 @@ public class Controller {
 
     @PostMapping("/formInscription")
     public String addUtilisateur(String nom, String prenom, String email, String motDePasse) {
-        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse);
+        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, "USER");
         utilisateurService.enregistreUtilisateur(utilisateur);
         return "redirect:/utilisateurs";
     }
@@ -87,6 +87,7 @@ public class Controller {
             session.setAttribute("nom", utilisateur.getNom());
             session.setAttribute("prenom", utilisateur.getPrenom());
             session.setAttribute("id", utilisateur.getId_utilisateur());
+            session.setAttribute("role", utilisateur.getRole());
             return "redirect:/";
         } else {
             model.addAttribute("erreur", "Email ou mot de passe invalide.");

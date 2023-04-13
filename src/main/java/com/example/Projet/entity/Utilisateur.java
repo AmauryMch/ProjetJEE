@@ -25,4 +25,5 @@ public class Utilisateur {
 
     private String mot_de_passe;
 
+    private String role;
 }
