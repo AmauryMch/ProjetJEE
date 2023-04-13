@@ -40,7 +40,7 @@ public class Controller {
 
     @GetMapping("/")
     public String home(Model model, HttpSession s) {
-        if(s.equals(null)) {
+        if(!s.equals(null)) {
             String email = s.getAttribute("email").toString();
 
             Utilisateur u = utilisateurService.findByEmail(email);
@@ -48,7 +48,6 @@ public class Controller {
 
             List<Programme> p = u.getProgrammes();
             model.addAttribute("ListeProgrammes", p);
-
         }
         List<Activite> activite = activiteService.getAllActivites();
         model.addAttribute("activite", activite);
@@ -113,9 +112,21 @@ public class Controller {
     }
 
     @PostMapping("/add")
-    public String ajoutProgramme(String nom, Model model, HttpSession s){
-
-        System.out.println(activiteService.findByNom(nom));
+    public String ajoutProgramme(String nom, String choixProg, Model model, HttpSession s, HttpServletRequest request){
+        String email=s.getAttribute("email").toString();
+        Utilisateur u=utilisateurService.findByEmail(email);
+        List<Programme> lp=u.getProgrammes();
+        activiteService.findByNom(nom);
+        for(int temp=0; temp< lp.size();temp++){
+            if(lp.get(temp).getNom().equals(choixProg)){
+                Programme p=lp.get(temp);
+                List<Activite> la=p.getActivites();
+                la.add(activiteService.findByNom(nom));
+                p.setActivites(la);
+                programmeService.enregistreProgramme(p);
+            }
+        }
+        System.out.println(activiteService.findByNom(choixProg));
         return "redirect:/profil";
     }
 
@@ -135,6 +146,6 @@ public class Controller {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "/connexion";
+        return "/formConnexion";
     }
 }

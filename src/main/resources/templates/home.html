@@ -27,18 +27,18 @@
 </nav>
 <!--------------------Fin Navbar----------------->
 
-<h1>Bienvenue <span th:text="${session.nom}"></span>
-    <span th:text="${session.prenom}"></span>
+<h1>Bienvenue <span th:if="${session.nom}!= null" th:text="${session.nom}"></span>
+    <span th:if="${session.nom}!= null" th:text="${session.prenom}"></span>
 </h1>
 <form th:action="@{/add}" method="post">
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Description</th>
-        <th th:if="${session.nom}!= null">Options</th>
-        <th th:if="${session.nom}!= null">Action</th>
+        <th>ID: </th>
+        <th>Nom: </th>
+        <th>Description: </th>
+        <th th:if="${session.nom}!= null">Vos programmes: </th>
+        <th th:if="${session.nom}!= null">Action: </th>
     </tr>
     </thead>
     <tbody>
@@ -47,8 +47,7 @@
         <td><input type="hidden" name="nom" th:value="${activite.nom}"/><span th:text="${activite.nom}"></span></td>
         <td><span th:text="${activite.description_activite}"></span></td>
         <td>
-            <select name="options" id="options" th:if="${session.nom}!= null">
-                <option value="">Sélectionnez une option</option>
+            <select id="choixProg" name="choixProg" th:if="${session.nom}!= null">
                 <option th:each="programme : ${ListeProgrammes}" th:value="${programme.nom}" th:text="${programme.nom}"></option>
             </select>
         </td>
