@@ -21,4 +21,8 @@ public class ActiviteService {
         activiteRepository.save(activite);
     }
 
+    public Activite findActiviteByNom_activite(String nom) {
+        return activiteRepository.findActiviteByNom_activite(nom);
+    }
+
 }

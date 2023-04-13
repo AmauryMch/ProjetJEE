@@ -11,12 +11,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Acceuil</a>
     <ul class="navbar-nav">
-        <li th:if="${session.role} == 'ADMIN'" class="nav-item"><a class="nav-link" href="/activite/add">Activité +</a></li>
-        <li th:if="${session.role} == 'ADMIN'" class="nav-item"><a class="nav-link" href="/utilisateurs">Utilisateur</a></li>
+        <li th:if="${session.role} == 'ADMIN'" class="nav-item"><a class="nav-link" href="/activite/add">Activité +</a>
+        </li>
+        <li th:if="${session.role} == 'ADMIN'" class="nav-item"><a class="nav-link" href="/utilisateurs">Utilisateur</a>
+        </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-        <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary" href="/connexion">Connexion</a></li>
-        <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary" href="/inscription">Inscription</a></li>
+        <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary" href="/connexion">Connexion</a>
+        </li>
+        <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary"
+                                                               href="/inscription">Inscription</a></li>
         <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/profil">Profil</a></li>
     </ul>
 </nav>
@@ -36,12 +40,15 @@
     </thead>
     <tbody>
     <tr th:each="activite : ${activite}">
-        <td th:text="${activite.id_activite}"></td>
-        <td th:text="${activite.nom_activite}"></td>
-        <td th:text="${activite.description_activite}"></td>
-        <td>
-            <button th:method="post" th:if="${session.nom} != null" th:action="/add" type="submit">Ajouter</button>
-        </td>
+        <form th:action="@{/add}" method="post">
+            <td th:text="${activite.id_activite}"></td>
+            <td><input type="hidden" name="nom" th:value="${activite.nom_activite}"></td>
+            <td th:text="${activite.nom_activite}"></td>
+            <td th:text="${activite.description_activite}"></td>
+            <td>
+                <button th:if="${session.nom} != null" type="submit">Ajouter</button>
+            </td>
+        </form>
     </tr>
     </tbody>
 </table>

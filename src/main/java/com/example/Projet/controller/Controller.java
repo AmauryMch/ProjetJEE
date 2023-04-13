@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @org.springframework.stereotype.Controller
 public class Controller {
 
@@ -90,17 +92,15 @@ public class Controller {
             return "formConnexion";
         }
     }
-    @GetMapping("/profils")
+    @GetMapping("/profil")
     public String profil(){
         return "profil";
     }
 
     @PostMapping("/add")
-    public String ajoutProgramme(Model model, HttpSession s){
-        Long id_u = (Long) s.getAttribute("id");
-
-
-        return "/profil";
+    public String ajoutProgramme(String nom, Model model, HttpSession s){
+        System.out.println(activiteService.findActiviteByNom_activite(nom));
+        return "redirect:/profil";
     }
 
 
