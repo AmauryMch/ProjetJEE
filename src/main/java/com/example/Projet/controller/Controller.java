@@ -4,20 +4,15 @@ import com.example.Projet.entity.Activite;
 import com.example.Projet.entity.Notation;
 import com.example.Projet.entity.Programme;
 import com.example.Projet.entity.Utilisateur;
-import com.example.Projet.repositery.NotationReposetory;
-import com.example.Projet.repositery.ProgrammeReposetory;
 import com.example.Projet.service.ActiviteService;
 import com.example.Projet.service.NotationService;
 import com.example.Projet.service.ProgrammeService;
 import com.example.Projet.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,6 +164,12 @@ public class Controller {
                 }
             }
         }
+
+        List<Notation> notes = new ArrayList<>();
+        for(int temp3 =0; temp3<u.getNotations().size(); temp3++) {
+            notes.add(u.getNotations().get(temp3));
+        }
+        model.addAttribute("notes", notes);
         model.addAttribute("utilisateur", u);
         model.addAttribute("activite", a);
         return "profil";

@@ -37,7 +37,7 @@
     <tr th:each="programmes : ${programmes}">
         <td th:text="${programmes.nom}"></td>
         <td th:text="${programmes.note}"></td>
-        <td th:each="activite : ${programmes.activites}" th:text="${activite.nom}+', '"></td>
+        <td> <span th:each="activite : ${programmes.activites}" th:text="${activite.nom}+', '"></span></td>
     </tr>
     </tbody>
 
@@ -58,11 +58,13 @@
 <table class="table">
     <thead>
     <th>Vos activité:</th>
+    <th>Votre note</th>
     </thead>
     <tbody>
     <tr th:each="activite : ${activite}">
         <form th:action="@{/notation}" method="post">
             <td><input type="hidden" name="nomAct" th:value="${activite.nom}" /><span th:text="${activite.nom}"></span></td>
+            <td><span th:each="n : ${notes}" th:if="${n.activite} == ${activite}" th:text="${n.note}"></span></td>
             <td >
                 <label>
                     <input type="radio" name="choix" value=1>
