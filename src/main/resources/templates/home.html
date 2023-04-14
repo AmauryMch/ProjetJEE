@@ -47,7 +47,7 @@
         <td><input type="hidden" name="nom" th:value="${activite.nom}"/><span th:text="${activite.nom}"></span></td>
         <td><span th:text="${activite.description_activite}"></span></td>
         <td>
-            <select id="choixProg" name="choixProg" th:if="${session.nom}!= null">
+            <select id="choixProg" th:name="choixProg" th:if="${session.nom}!= null">
                 <option th:each="programme : ${ListeProgrammes}" th:value="${programme.nom}" th:text="${programme.nom}"></option>
             </select>
         </td>

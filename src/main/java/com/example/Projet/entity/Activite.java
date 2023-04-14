@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,8 +22,10 @@ public class Activite {
 
     private String description_activite;
 
-    @ManyToOne
-    @JoinColumn(name = "id_programme")
-    private Programme programme;
+    @ManyToMany
+    @JoinTable(name = "activite_programme",
+            joinColumns = @JoinColumn(name = "activite_id"),
+            inverseJoinColumns = @JoinColumn(name = "programme_id"))
+    private List<Programme> programmes;
 }
 

@@ -39,7 +39,7 @@ public class ProjetApplication implements CommandLineRunner {
 		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Mechin", "Amaury", "amaury@email.fr", "user", "USER",new ArrayList<Programme>()));
 		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Bardel", "François", "francois@email.fr", "user", "USER",new ArrayList<Programme>()));
 		activiteService.enregistrerActivite(new Activite(null, "Petanque", "Lancer des boules tout en buvant un ptit jaune, ça c'est ma France", null));
-		activiteService.enregistrerActivite(new Activite(null, "Escalade", "Pour escalader ta grosse daronne", null));
+		//activiteService.enregistrerActivite(new Activite(null, "Escalade", "Pour escalader ta grosse daronne", null));
 		utilisateurService.enregistreUtilisateur(u);
 
 		Programme p=new Programme(null, "azert",u, new ArrayList<Activite>());

@@ -118,16 +118,20 @@ public class Controller {
         Utilisateur u=utilisateurService.findByEmail(email);
         List<Programme> lp=u.getProgrammes();
         activiteService.findByNom(nom);
+        Activite a=activiteService.findByNom(nom);
         for(int temp=0; temp< lp.size();temp++){
             if(lp.get(temp).getNom().equals(choixProg)){
                 Programme p=lp.get(temp);
-                List<Activite> la=p.getActivites();
-                la.add(activiteService.findByNom(nom));
-                p.setActivites(la);
+
+                p.getActivites().add(a);
+
+                a.getProgrammes().add(p);
+
                 programmeService.enregistreProgramme(p);
+                activiteService.enregistrerActivite(a);
             }
         }
-        System.out.println(activiteService.findByNom(choixProg));
+        System.out.println(choixProg);
         return "redirect:/profil";
     }
 

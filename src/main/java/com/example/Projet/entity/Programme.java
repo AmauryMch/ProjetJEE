@@ -24,7 +24,7 @@ public class Programme {
     @JoinColumn(name = "id_utilisateur")
     private Utilisateur utilisateur;
 
-    @OneToMany(mappedBy = "programme")
+    @ManyToMany(mappedBy = "programmes")
     private List<Activite> activites;
 
 }
