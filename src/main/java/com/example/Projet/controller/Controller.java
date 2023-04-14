@@ -1,10 +1,13 @@
 package com.example.Projet.controller;
 
 import com.example.Projet.entity.Activite;
+import com.example.Projet.entity.Notation;
 import com.example.Projet.entity.Programme;
 import com.example.Projet.entity.Utilisateur;
+import com.example.Projet.repositery.NotationReposetory;
 import com.example.Projet.repositery.ProgrammeReposetory;
 import com.example.Projet.service.ActiviteService;
+import com.example.Projet.service.NotationService;
 import com.example.Projet.service.ProgrammeService;
 import com.example.Projet.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class Controller {
 
     @Autowired
     private ProgrammeService programmeService;
+
+    @Autowired
+    private NotationService notationService;
 
     @GetMapping("/utilisateurs")
     public String afficherUtilisateurs(Model model) {
@@ -144,7 +150,6 @@ public class Controller {
                 activiteService.enregistrerActivite(a);
             }
         }
-        System.out.println(choixProg);
         return "redirect:/profil";
     }
 
@@ -165,5 +170,19 @@ public class Controller {
     public String logout(HttpSession session) {
         session.invalidate();
         return "/formConnexion";
+    }
+
+    @PostMapping("/notation")
+    public String notation(String nomAct, int choix,  HttpSession s){
+        String email=s.getAttribute("email").toString();
+        Utilisateur u=utilisateurService.findByEmail(email);
+        Long idu=u.getId_utilisateur();
+
+        Activite a= activiteService.findByNom(nomAct);
+        System.out.println(choix);
+        System.out.println(nomAct);
+        notationService.enregistreNotation(new Notation(null, choix, a));
+
+        return "redirect:/profil";
     }
 }
