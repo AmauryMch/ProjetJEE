@@ -86,7 +86,7 @@ public class Controller {
     @PostMapping("/formInscription")
     public String addUtilisateur(String nom, String prenom, String email, String motDePasse) {
         List<Programme>l =new ArrayList<Programme>();
-        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, "USER", l);
+        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, "USER", l, null);
         utilisateurService.enregistreUtilisateur(utilisateur);
         return "redirect:/utilisateurs";
     }
@@ -125,7 +125,7 @@ public class Controller {
                 }
             }
         }
-
+        model.addAttribute("utilisateur", u);
         model.addAttribute("activite", a);
         return "profil";
     }
@@ -173,7 +173,7 @@ public class Controller {
     }
 
     @PostMapping("/notation")
-    public String notation(String nomAct, int choix,  HttpSession s){
+    public String notation(String nomAct, int choix,  HttpSession s, Model model){
         String email=s.getAttribute("email").toString();
         Utilisateur u=utilisateurService.findByEmail(email);
         Long idu=u.getId_utilisateur();
@@ -181,7 +181,7 @@ public class Controller {
         Activite a= activiteService.findByNom(nomAct);
         System.out.println(choix);
         System.out.println(nomAct);
-        notationService.enregistreNotation(new Notation(null, choix, a));
+        notationService.enregistreNotation(new Notation(null, choix, u, a));
 
         return "redirect:/profil";
     }

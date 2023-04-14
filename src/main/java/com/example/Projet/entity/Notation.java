@@ -21,6 +21,10 @@ public class Notation {
     private int note;
 
     @ManyToOne
+    @JoinColumn(name="id_utilisateur")
+    private Utilisateur utilisateur;
+
+    @ManyToOne
     @JoinColumn(name="id_activite")
     private Activite activite;
 

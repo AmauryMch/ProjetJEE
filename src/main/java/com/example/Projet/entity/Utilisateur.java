@@ -30,4 +30,7 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Programme> programmes;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Notation> notations;
 }

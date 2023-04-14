@@ -34,10 +34,10 @@ public class ProjetApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Utilisateur u=new Utilisateur(null, "User", "user", "user", "user", "USER",new ArrayList<Programme>());
-		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "admin", "admin", "admin", "admin", "ADMIN", new ArrayList<Programme>()));
-		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Mechin", "Amaury", "amaury@email.fr", "user", "USER",new ArrayList<Programme>()));
-		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Bardel", "François", "francois@email.fr", "user", "USER",new ArrayList<Programme>()));
+		Utilisateur u=new Utilisateur(null, "User", "user", "user", "user", "USER",new ArrayList<Programme>(), null);
+		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "admin", "admin", "admin", "admin", "ADMIN", new ArrayList<Programme>(), null));
+		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Mechin", "Amaury", "amaury@email.fr", "user", "USER",new ArrayList<Programme>(), null));
+		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Bardel", "François", "francois@email.fr", "user", "USER",new ArrayList<Programme>(), null));
 
 		activiteService.enregistrerActivite(new Activite(null, "Petanque", "Lancer des boules tout en buvant un ptit jaune", null, null));
 		activiteService.enregistrerActivite(new Activite(null, "Escalade", "Gare a toi Inox, je serais plus rapide", null, null));

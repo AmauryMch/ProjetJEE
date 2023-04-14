@@ -61,7 +61,7 @@
     <tr th:each="activite : ${activite}">
         <form th:action="@{/notation}" method="post">
             <td><input type="hidden" name="nomAct" th:value="${activite.nom}" /><span th:text="${activite.nom}"></span></td>
-            <td>
+            <td th:each="notation : ${activite.notations}" th:if="${utilisateur}== ${notation.utilisateur}">
                 <label>
                     <input type="radio" name="choix" value=1>
                     1
