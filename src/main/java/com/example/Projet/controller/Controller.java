@@ -77,18 +77,42 @@ public class Controller {
     }
 
     @PostMapping("/formActivite")
-    public String addActivite(String nom, String description_activite) {
-        Activite activite = new Activite(null, nom, description_activite, null, null);
-        activiteService.enregistrerActivite(activite);
-        return "redirect:/";
+    public String addActivite(String nom, String description_activite, Model model) {
+        List<Activite> la = activiteService.getAllActivites();
+        boolean existe=false;
+        for(int temp=0; temp <la.size();temp++){
+            if(la.get(temp).getNom().equals(nom)){
+                existe=true;
+            }
+        }
+        if(!existe){
+            Activite activite = new Activite(null, nom, description_activite, null, null);
+            activiteService.enregistrerActivite(activite);
+            return "redirect:/";
+        }else{
+            model.addAttribute("erreur", "Une activité porte deja ce nom");
+            return "formActivite";
+        }
     }
 
     @PostMapping("/formInscription")
-    public String addUtilisateur(String nom, String prenom, String email, String motDePasse) {
-        List<Programme>l =new ArrayList<Programme>();
-        Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, "USER", l, null);
-        utilisateurService.enregistreUtilisateur(utilisateur);
-        return "redirect:/utilisateurs";
+    public String addUtilisateur(String nom, String prenom, String email, String motDePasse, Model model) {
+        List<Utilisateur> lu = utilisateurService.getAllUtilisateurs();
+        boolean existe=false;
+        for(int temp=0; temp <lu.size();temp++){
+            if(lu.get(temp).getEmail().equals(email)){
+                existe=true;
+            }
+        }
+        if(!existe){
+            List<Programme>l =new ArrayList<Programme>();
+            Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, "USER", l, null);
+            utilisateurService.enregistreUtilisateur(utilisateur);
+            return "redirect:/connexion";
+        }else{
+            model.addAttribute("erreur", "Un compte existe deja avec cet Email");
+            return "formInscription";
+        }
     }
 
     @PostMapping("/formConnexion")
