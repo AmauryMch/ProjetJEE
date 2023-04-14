@@ -27,5 +27,8 @@ public class Activite {
             joinColumns = @JoinColumn(name = "activite_id"),
             inverseJoinColumns = @JoinColumn(name = "programme_id"))
     private List<Programme> programmes;
+
+    @OneToMany(mappedBy = "activite")
+    private List<Notation> notations;
 }
 

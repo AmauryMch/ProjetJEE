@@ -72,7 +72,7 @@ public class Controller {
 
     @PostMapping("/formActivite")
     public String addActivite(String nom, String description_activite) {
-        Activite activite = new Activite(null, nom, description_activite, null);
+        Activite activite = new Activite(null, nom, description_activite, null, null);
         activiteService.enregistrerActivite(activite);
         return "redirect:/";
     }
@@ -109,6 +109,18 @@ public class Controller {
         Utilisateur u=utilisateurService.findByEmail(email);
         List<Programme> p = u.getProgrammes();
         model.addAttribute("programmes", p);
+
+        List<Activite> a = new ArrayList<>();
+        for(int temp = 0; temp<p.size(); temp++) {
+            Programme pr = p.get(temp);
+            for(int temp2 = 0; temp2<pr.getActivites().size(); temp2++) {
+                if(!a.contains(pr.getActivites().get(temp2))) {
+                    a.add(pr.getActivites().get(temp2));
+                }
+            }
+        }
+
+        model.addAttribute("activite", a);
         return "profil";
     }
 

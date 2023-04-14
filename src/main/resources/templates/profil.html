@@ -25,7 +25,7 @@
 </nav>
 <!--------------------Fin Navbar----------------->
 
-<table>
+<table class="table">
     <thead>
     <th>Vos Programmes:</th>
     <th>Activités</th>
@@ -33,16 +33,36 @@
     <tbody>
     <tr th:each="programmes : ${programmes}">
         <td th:text="${programmes.nom}"></td>
-        <td th:each="activite : ${programmes.activites}" th:text="${activite.nom}"></td>
+        <td th:each="activite : ${programmes.activites}" th:text="${activite.nom}+', '"></td>
     </tr>
     </tbody>
 
 </table>
+<p>
 
+
+
+</p>
 <form method="post" th:action="@{/newProgramme}">
     <label>Nom :</label>
     <input type="text" name="nom"><br><br>
     <button type="submit">Ajouter</button>
 </form>
+<p>
+
+
+
+</p>
+<table class="table">
+    <thead>
+    <th>Vos activité:</th>
+    </thead>
+    <tbody>
+    <tr th:each="activite : ${activite}">
+        <td th:text="${activite.nom}"></td>
+    </tr>
+    </tbody>
+
+</table>
 </body>
 </html>
