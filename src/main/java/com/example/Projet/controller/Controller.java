@@ -109,6 +109,15 @@ public class Controller {
         Utilisateur u=utilisateurService.findByEmail(email);
         List<Programme> p = u.getProgrammes();
         model.addAttribute("programmes", p);
+
+        String rep="";
+        List<String> ls=new ArrayList<>();
+        for(int temp=0; temp<p.size();temp++){
+            Programme pr=p.get(temp);
+            Acti
+
+        }
+
         return "profil";
     }
 
