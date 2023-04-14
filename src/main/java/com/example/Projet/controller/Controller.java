@@ -113,12 +113,13 @@ public class Controller {
     }
 
     @PostMapping("/add")
-    public String ajoutProgramme(String nom, String choixProg, Model model, HttpSession s, HttpServletRequest request){
+    public String ajoutProgramme(String nom, String choixProg, HttpSession s){
         String email=s.getAttribute("email").toString();
         Utilisateur u=utilisateurService.findByEmail(email);
         List<Programme> lp=u.getProgrammes();
-        activiteService.findByNom(nom);
+
         Activite a=activiteService.findByNom(nom);
+
         for(int temp=0; temp< lp.size();temp++){
             if(lp.get(temp).getNom().equals(choixProg)){
                 Programme p=lp.get(temp);
