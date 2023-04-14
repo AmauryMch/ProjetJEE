@@ -176,12 +176,20 @@ public class Controller {
     public String notation(String nomAct, int choix,  HttpSession s, Model model){
         String email=s.getAttribute("email").toString();
         Utilisateur u=utilisateurService.findByEmail(email);
-        Long idu=u.getId_utilisateur();
-
         Activite a= activiteService.findByNom(nomAct);
-        System.out.println(choix);
-        System.out.println(nomAct);
-        notationService.enregistreNotation(new Notation(null, choix, u, a));
+        boolean ok=true;
+        for(int temp=0; temp<u.getNotations().size(); temp++){
+            for(int i=0; i<a.getNotations().size();i++){
+                if(a.getNotations().get(i)==u.getNotations().get(temp)){
+                    ok=false;
+                }
+            }
+        }
+        if(ok){
+            notationService.enregistreNotation(new Notation(null, choix, u, a));
+        }else{
+            System.out.println("feur");
+        }
 
         return "redirect:/profil";
     }
