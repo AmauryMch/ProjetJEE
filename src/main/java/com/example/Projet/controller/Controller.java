@@ -187,10 +187,7 @@ public class Controller {
         }
         if(ok){
             notationService.enregistreNotation(new Notation(null, choix, u, a));
-        }else{
-            System.out.println("feur");
         }
-
         return "redirect:/profil";
     }
 }

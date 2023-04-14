@@ -40,15 +40,28 @@ public class ProjetApplication implements CommandLineRunner {
 		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Mechin", "Amaury", "amaury@email.fr", "user", "USER",new ArrayList<Programme>(), new ArrayList<Notation>()));
 		utilisateurService.enregistreUtilisateur(new Utilisateur(null, "Bardel", "François", "francois@email.fr", "user", "USER",new ArrayList<Programme>(), new ArrayList<Notation>()));
 
-		activiteService.enregistrerActivite(new Activite(null, "Petanque", "Lancer des boules tout en buvant un ptit jaune", null, new ArrayList<Notation>()));
-		activiteService.enregistrerActivite(new Activite(null, "Escalade", "Gare a toi Inox, je serais plus rapide", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Pétanque", "Lancer des boules tout en buvant un ptit jaune", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Basketball", "Marquer des paniers en équipe", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Football", "Fouler la pelouse et marquer des buts", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Volleyball", "Frapper une balle avec les mains", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Natation", "Nager pour se dépenser", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Badminton", "Jouer en raquette avec un volant", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Tennis", "Frapper une balle avec une raquette", null, new ArrayList<Notation>()));
 		activiteService.enregistrerActivite(new Activite(null, "Ark", "Dino dino", null, null));
+		activiteService.enregistrerActivite(new Activite(null, "Gymnastique", "Faire des mouvements pour se muscler", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Escalade", "Monter une paroi à l'aide de cordes", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Randonnée", "Marcher en nature pour découvrir de nouveaux paysages", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Cyclisme", "Pédaler sur des routes ou des chemins", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Yoga", "Pratiquer des postures pour se détendre", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Taekwondo", "Combattre avec les poings et les pieds", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Boxe", "Se défendre en utilisant les techniques de combat", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Judo", "Se battre en utilisant des techniques de projection", null, new ArrayList<Notation>()));
 		activiteService.enregistrerActivite(new Activite(null, "Beyblade", "Devenir le meilleur blader", null, new ArrayList<Notation>()));
-
-		activiteService.enregistrerActivite(new Activite(null, "Flop", "Grim vous enseignera lart de l'humour par le flop", null, new ArrayList<Notation>()));
-		activiteService.enregistrerActivite(new Activite(null, "BedWar", "Pour defoncer les 3 joueurs restant sur OneCube", null, new ArrayList<Notation>()));
-		activiteService.enregistrerActivite(new Activite(null, "Ark saison 2", "Dino dino, mais dans le desert cette fois ci", null, new ArrayList<Notation>()));
-		activiteService.enregistrerActivite(new Activite(null, "Ark saison 3: Minecraft", "Dino dino mais cubique", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Karate", "Pratiquer des techniques d'autodéfense japonaises", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Aikido", "Pratiquer des techniques d'autodéfense japonaises", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Krav Maga", "Pratiquer des techniques d'autodéfense israéliennes", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Danse", "Danser sur différents types de musique", null, new ArrayList<Notation>()));
+		activiteService.enregistrerActivite(new Activite(null, "Musculation", "Travailler ses muscles pour les renforcer", null, new ArrayList<Notation>()));
 
 		utilisateurService.enregistreUtilisateur(u);
 
