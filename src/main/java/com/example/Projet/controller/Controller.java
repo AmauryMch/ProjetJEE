@@ -138,6 +138,26 @@ public class Controller {
         String email=s.getAttribute("email").toString();
         Utilisateur u=utilisateurService.findByEmail(email);
         List<Programme> p = u.getProgrammes();
+
+        List<Notation> ln=new ArrayList<Notation>();
+        for(int temp=0;temp<p.size();temp++){
+           List<Activite> la= p.get(temp).getActivites();
+           float note=0;
+           for(int i=0; i<la.size(); i++){
+               List<Notation> ln2=la.get(i).getNotations();
+               for(int j=0;j<ln2.size();j++){
+                   if(ln2.get(j).getUtilisateur().equals(u)){
+                       note+=ln2.get(j).getNote();
+                   }
+               }
+           }
+           if(la.size()>0){
+               note=note/la.size();
+               p.get(temp).setNote(note);
+               programmeService.enregistreProgramme(p.get(temp));
+           }
+        }
+
         model.addAttribute("programmes", p);
 
         List<Activite> a = new ArrayList<>();
@@ -181,7 +201,7 @@ public class Controller {
     public String NewProgramme(String nom, Model model, HttpSession s){
         String email=s.getAttribute("email").toString();
         Utilisateur u=utilisateurService.findByEmail(email);
-        Programme p=new Programme(null, nom,u, new ArrayList<Activite>());
+        Programme p=new Programme(null, nom,u, new ArrayList<Activite>(),0);
         programmeService.enregistreProgramme(p);
         List<Programme> pl = u.getProgrammes();
         pl.add(p);

@@ -65,8 +65,8 @@ public class ProjetApplication implements CommandLineRunner {
 
 		utilisateurService.enregistreUtilisateur(u);
 
-		Programme p=new Programme(null, "Sport",u, new ArrayList<Activite>());
-		Programme p2=new Programme(null, "Geek puant",u, new ArrayList<Activite>());
+		Programme p=new Programme(null, "Sport",u, new ArrayList<Activite>(),0);
+		Programme p2=new Programme(null, "Geek puant",u, new ArrayList<Activite>(),0);
 		programmeService.enregistreProgramme(p);
 		programmeService.enregistreProgramme(p2);
 		List<Programme> pl = u.getProgrammes();

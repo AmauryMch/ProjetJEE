@@ -30,11 +30,13 @@
 <table class="table">
     <thead>
     <th>Vos Programmes:</th>
-    <th>Activités</th>
+    <th>Notes: </th>
+    <th>Activités: </th>
     </thead>
     <tbody>
     <tr th:each="programmes : ${programmes}">
         <td th:text="${programmes.nom}"></td>
+        <td th:text="${programmes.note}"></td>
         <td th:each="activite : ${programmes.activites}" th:text="${activite.nom}+', '"></td>
     </tr>
     </tbody>

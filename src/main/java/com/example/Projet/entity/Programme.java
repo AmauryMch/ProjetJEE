@@ -27,4 +27,6 @@ public class Programme {
     @ManyToMany(mappedBy = "programmes")
     private List<Activite> activites;
 
+    private float note;
+
 }
