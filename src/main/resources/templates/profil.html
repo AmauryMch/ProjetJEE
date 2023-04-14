@@ -31,9 +31,9 @@
     <th>Activités</th>
     </thead>
     <tbody>
-    <tr th:each="programmes,i : ${programmes}">
+    <tr th:each="programmes : ${programmes}">
         <td th:text="${programmes.nom}"></td>
-        <td th:text="${programmes.activites.get(i).getNom()}"></td>
+        <td th:each="activite : ${programmes.activites}" th:text="${activite.nom}"></td>
     </tr>
     </tbody>
 
