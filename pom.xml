@@ -23,10 +23,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
@@ -52,26 +48,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.7.7</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>com.github.nyla-solutions</groupId>
-            <artifactId>gedi-geode-spring-security</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-		<dependency>
-			<groupId>com.github.nyla-solutions</groupId>
-			<artifactId>gedi-geode-spring-security</artifactId>
-			<version>0.0.1</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.7.7</version>
 		</dependency>
 	</dependencies>
 
