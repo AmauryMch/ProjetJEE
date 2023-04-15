@@ -9,10 +9,15 @@ import com.example.Projet.service.NotationService;
 import com.example.Projet.service.ProgrammeService;
 import com.example.Projet.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -212,9 +217,12 @@ public class Controller {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "/formConnexion";
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/connexion?logout";
     }
 
     @PostMapping("/notation")
