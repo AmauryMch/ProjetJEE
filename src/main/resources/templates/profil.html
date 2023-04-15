@@ -30,43 +30,44 @@
 <table class="table">
     <thead>
     <th>Vos Programmes:</th>
-    <th>Notes: </th>
-    <th>Activités: </th>
+    <th>Notes:</th>
+    <th>Activités:</th>
     </thead>
     <tbody>
     <tr th:each="programmes : ${programmes}">
         <td th:text="${programmes.nom}"></td>
         <td th:text="${programmes.note}"></td>
-        <td> <span th:each="activite : ${programmes.activites}" th:text="${activite.nom}+', '"></span></td>
+        <td><span th:each="activite : ${programmes.activites}" th:text="${activite.nom}+', '"></span></td>
     </tr>
     </tbody>
 
 </table>
-<p>
+<br>
+<br>
 
+<div class="text-center">
+    <p>Creer un nouveau programme:</p>
+    <form method="post" th:action="@{/newProgramme}" style="max-width: 350px; margin: 0 auto;">
+        <input class="form-control" type="text" name="nom" placeholder="Nom du programme"><br>
+        <button class="btn btn-primary" type="submit">Ajouter</button>
+    </form>
+</div>
+<br>
+<br>
 
-</p>
-<form method="post" th:action="@{/newProgramme}">
-    <label>Nom :</label>
-    <input type="text" name="nom"><br><br>
-    <button type="submit">Ajouter</button>
-</form>
-<p>
-
-
-</p>
 <table class="table">
     <thead>
     <th>Vos activité:</th>
     <th>Votre note</th>
-    <th> </th>
+    <th></th>
     </thead>
     <tbody>
     <tr th:each="activite : ${activite}">
         <form th:action="@{/notation}" method="post">
-            <td><input type="hidden" name="nomAct" th:value="${activite.nom}" /><span th:text="${activite.nom}"></span></td>
+            <td><input type="hidden" name="nomAct" th:value="${activite.nom}"/><span th:text="${activite.nom}"></span>
+            </td>
             <td><span th:each="n : ${notes}" th:if="${n.activite} == ${activite}" th:text="${n.note}"></span></td>
-            <td >
+            <td>
                 <label>
                     <input type="radio" name="choix" value=1>
                     1
