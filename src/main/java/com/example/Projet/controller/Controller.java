@@ -227,12 +227,17 @@ public class Controller {
             for(int i=0; i<a.getNotations().size();i++){
                 if(a.getNotations().get(i)==u.getNotations().get(temp)){
                     ok=false;
+                    Notation n=u.getNotations().get(temp);
+                    n.setNote(choix);
+                    notationService.enregistreNotation(n);
                 }
             }
         }
         if(ok){
             notationService.enregistreNotation(new Notation(null, choix, u, a));
         }
+
+
         return "redirect:/profil";
     }
 }
