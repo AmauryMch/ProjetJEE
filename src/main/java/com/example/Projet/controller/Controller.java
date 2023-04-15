@@ -9,10 +9,15 @@ import com.example.Projet.service.NotationService;
 import com.example.Projet.service.ProgrammeService;
 import com.example.Projet.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +38,23 @@ public class Controller {
     private NotationService notationService;
 
     @GetMapping("/utilisateurs")
-    public String afficherUtilisateurs(Model model) {
-        List<Utilisateur> utilisateur = utilisateurService.getAllUtilisateurs();
-        model.addAttribute("utilisateur", utilisateur);
-        return "utilisateurs";
+    public String afficherUtilisateurs(Model model,HttpSession s) {
+        String role = (String) s.getAttribute("role");
+        if(role!=null) {
+            if (role.equals("ADMIN")) {
+                List<Utilisateur> utilisateur = utilisateurService.getAllUtilisateurs();
+                model.addAttribute("utilisateur", utilisateur);
+                return "utilisateurs";
+            }
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/")
     public String home(Model model, HttpSession s) {
-        if(!s.equals(null)) {
+        if (!s.equals(null)) {
             String email = (String) s.getAttribute("email");
-            if(email != null) {
+            if (email != null) {
                 Utilisateur u = utilisateurService.findByEmail(email);
                 model.addAttribute("user", u);
 
@@ -62,8 +73,14 @@ public class Controller {
     }
 
     @GetMapping("/activite/add")
-    public String showFormActivite() {
-        return "formActivite";
+    public String showFormActivite(HttpSession s) {
+            String role = (String) s.getAttribute("role");
+            if(role!=null) {
+                if (role.equals("ADMIN")) {
+                    return "formActivite";
+                }
+            }
+        return "redirect:/";
     }
 
     @GetMapping("/inscription")
@@ -74,17 +91,17 @@ public class Controller {
     @PostMapping("/formActivite")
     public String addActivite(String nom, String description_activite, Model model) {
         List<Activite> la = activiteService.getAllActivites();
-        boolean existe=false;
-        for(int temp=0; temp <la.size();temp++){
-            if(la.get(temp).getNom().equals(nom)){
-                existe=true;
+        boolean existe = false;
+        for (int temp = 0; temp < la.size(); temp++) {
+            if (la.get(temp).getNom().equals(nom)) {
+                existe = true;
             }
         }
-        if(!existe){
+        if (!existe) {
             Activite activite = new Activite(null, nom, description_activite, null, null);
             activiteService.enregistrerActivite(activite);
             return "redirect:/";
-        }else{
+        } else {
             model.addAttribute("erreur", "Une activité porte deja ce nom");
             return "formActivite";
         }
@@ -93,18 +110,18 @@ public class Controller {
     @PostMapping("/formInscription")
     public String addUtilisateur(String nom, String prenom, String email, String motDePasse, Model model) {
         List<Utilisateur> lu = utilisateurService.getAllUtilisateurs();
-        boolean existe=false;
-        for(int temp=0; temp <lu.size();temp++){
-            if(lu.get(temp).getEmail().equals(email)){
-                existe=true;
+        boolean existe = false;
+        for (int temp = 0; temp < lu.size(); temp++) {
+            if (lu.get(temp).getEmail().equals(email)) {
+                existe = true;
             }
         }
-        if(!existe){
-            List<Programme>l =new ArrayList<Programme>();
+        if (!existe) {
+            List<Programme> l = new ArrayList<Programme>();
             Utilisateur utilisateur = new Utilisateur(null, nom, prenom, email, motDePasse, "USER", l, null);
             utilisateurService.enregistreUtilisateur(utilisateur);
             return "redirect:/connexion";
-        }else{
+        } else {
             model.addAttribute("erreur", "Un compte existe deja avec cet Email");
             return "formInscription";
         }
@@ -128,45 +145,46 @@ public class Controller {
             return "formConnexion";
         }
     }
+
     @GetMapping("/profil")
-    public String profil(Model model, HttpSession s){
-        String email=s.getAttribute("email").toString();
-        Utilisateur u=utilisateurService.findByEmail(email);
+    public String profil(Model model, HttpSession s) {
+        String email = s.getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
         List<Programme> p = u.getProgrammes();
 
-        List<Notation> ln=new ArrayList<Notation>();
-        for(int temp=0;temp<p.size();temp++){
-           List<Activite> la= p.get(temp).getActivites();
-           float note=0;
-           for(int i=0; i<la.size(); i++){
-               List<Notation> ln2=la.get(i).getNotations();
-               for(int j=0;j<ln2.size();j++){
-                   if(ln2.get(j).getUtilisateur().equals(u)){
-                       note+=ln2.get(j).getNote();
-                   }
-               }
-           }
-           if(la.size()>0){
-               note=note/la.size();
-               p.get(temp).setNote(note);
-               programmeService.enregistreProgramme(p.get(temp));
-           }
+        List<Notation> ln = new ArrayList<Notation>();
+        for (int temp = 0; temp < p.size(); temp++) {
+            List<Activite> la = p.get(temp).getActivites();
+            float note = 0;
+            for (int i = 0; i < la.size(); i++) {
+                List<Notation> ln2 = la.get(i).getNotations();
+                for (int j = 0; j < ln2.size(); j++) {
+                    if (ln2.get(j).getUtilisateur().equals(u)) {
+                        note += ln2.get(j).getNote();
+                    }
+                }
+            }
+            if (la.size() > 0) {
+                note = note / la.size();
+                p.get(temp).setNote(note);
+                programmeService.enregistreProgramme(p.get(temp));
+            }
         }
 
         model.addAttribute("programmes", p);
 
         List<Activite> a = new ArrayList<>();
-        for(int temp = 0; temp<p.size(); temp++) {
+        for (int temp = 0; temp < p.size(); temp++) {
             Programme pr = p.get(temp);
-            for(int temp2 = 0; temp2<pr.getActivites().size(); temp2++) {
-                if(!a.contains(pr.getActivites().get(temp2))) {
+            for (int temp2 = 0; temp2 < pr.getActivites().size(); temp2++) {
+                if (!a.contains(pr.getActivites().get(temp2))) {
                     a.add(pr.getActivites().get(temp2));
                 }
             }
         }
 
         List<Notation> notes = new ArrayList<>();
-        for(int temp3 =0; temp3<u.getNotations().size(); temp3++) {
+        for (int temp3 = 0; temp3 < u.getNotations().size(); temp3++) {
             notes.add(u.getNotations().get(temp3));
         }
         model.addAttribute("notes", notes);
@@ -176,16 +194,16 @@ public class Controller {
     }
 
     @PostMapping("/add")
-    public String ajoutProgramme(String nom, String choixProg, HttpSession s){
-        String email=s.getAttribute("email").toString();
-        Utilisateur u=utilisateurService.findByEmail(email);
-        List<Programme> lp=u.getProgrammes();
+    public String ajoutProgramme(String nom, String choixProg, HttpSession s) {
+        String email = s.getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        List<Programme> lp = u.getProgrammes();
 
-        Activite a=activiteService.findByNom(nom);
+        Activite a = activiteService.findByNom(nom);
 
-        for(int temp=0; temp< lp.size();temp++){
-            if(lp.get(temp).getNom().equals(choixProg)){
-                Programme p=lp.get(temp);
+        for (int temp = 0; temp < lp.size(); temp++) {
+            if (lp.get(temp).getNom().equals(choixProg)) {
+                Programme p = lp.get(temp);
 
                 p.getActivites().add(a);
 
@@ -199,10 +217,10 @@ public class Controller {
     }
 
     @PostMapping("/newProgramme")
-    public String NewProgramme(String nom, Model model, HttpSession s){
-        String email=s.getAttribute("email").toString();
-        Utilisateur u=utilisateurService.findByEmail(email);
-        Programme p=new Programme(null, nom,u, new ArrayList<Activite>(),0);
+    public String NewProgramme(String nom, Model model, HttpSession s) {
+        String email = s.getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        Programme p = new Programme(null, nom, u, new ArrayList<Activite>(), 0);
         programmeService.enregistreProgramme(p);
         List<Programme> pl = u.getProgrammes();
         pl.add(p);
@@ -212,28 +230,31 @@ public class Controller {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "/formConnexion";
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/connexion?logout";
     }
 
     @PostMapping("/notation")
-    public String notation(String nomAct, int choix,  HttpSession s, Model model){
-        String email=s.getAttribute("email").toString();
-        Utilisateur u=utilisateurService.findByEmail(email);
-        Activite a= activiteService.findByNom(nomAct);
-        boolean ok=true;
-        for(int temp=0; temp<u.getNotations().size(); temp++){
-            for(int i=0; i<a.getNotations().size();i++){
-                if(a.getNotations().get(i)==u.getNotations().get(temp)){
-                    ok=false;
-                    Notation n=u.getNotations().get(temp);
+    public String notation(String nomAct, int choix, HttpSession s, Model model) {
+        String email = s.getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        Activite a = activiteService.findByNom(nomAct);
+        boolean ok = true;
+        for (int temp = 0; temp < u.getNotations().size(); temp++) {
+            for (int i = 0; i < a.getNotations().size(); i++) {
+                if (a.getNotations().get(i) == u.getNotations().get(temp)) {
+                    ok = false;
+                    Notation n = u.getNotations().get(temp);
                     n.setNote(choix);
                     notationService.enregistreNotation(n);
                 }
             }
         }
-        if(ok){
+        if (ok) {
             notationService.enregistreNotation(new Notation(null, choix, u, a));
         }
 
