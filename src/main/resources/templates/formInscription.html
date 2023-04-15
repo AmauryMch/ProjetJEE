@@ -22,22 +22,23 @@
         <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary"
                                                                href="/inscription">Inscription</a></li>
         <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/profil">Profil</a></li>
-        <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/logout">Deconnexion</a></li>
+        <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/logout">Deconnexion</a>
+        </li>
     </ul>
 </nav>
 <!--------------------Fin Navbar----------------->
-<h1>Enregistrer un nouvel utilisateur</h1>
-<h1 th:text="${erreur}"></h1>
-<form method="post" th:action="@{/formInscription}">
-    <label>Nom :</label>
-    <input type="text" name="nom" required><br><br>
-    <label>Prénom :</label>
-    <input type="text" name="prenom" required><br><br>
-    <label>Adresse e-mail :</label>
-    <input type="email" name="email" required><br><br>
-    <label >Mot de passe :</label>
-    <input type="password" name="motDePasse" required><br><br>
-    <button type="submit">Enregistrer</button>
-</form>
+<div class="text-center">
+    <h1 th:text="${erreur}"></h1>
+    <form method="post" th:action="@{/formInscription}" style="max-width: 350px; margin: 0 auto; margin-top: 100px">
+        <div class="border border-secondary p-3 rounded">
+            <p>Enregistrer un nouvel utilisateur</p>
+            <input class="form-control" type="text" name="nom" placeholder="Nom" required><br>
+            <input class="form-control" type="text" name="prenom" placeholder="Prénom" required><br>
+            <input class="form-control" type="email" name="email" placeholder="Email" required><br>
+            <input class="form-control" type="password" name="motDePasse" placeholder="Mot de passe" required><br><br>
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -22,18 +22,21 @@
         <li th:if="${session.nom} == null" class="nav-item"><a class="btn btn-secondary"
                                                                href="/inscription">Inscription</a></li>
         <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/profil">Profil</a></li>
-        <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/logout">Deconnexion</a></li>
+        <li th:if="${session.nom}!= null" class="nav-item"><a class="btn btn-secondary" href="/logout">Deconnexion</a>
+        </li>
     </ul>
 </nav>
 <!--------------------Fin Navbar----------------->
-<h1>Connexion</h1>
-<h1 th:text="${erreur}"></h1>
-<form method="post" th:action="@{/formConnexion}">
-    <label>Email :</label>
-    <input type="text" name="email"><br><br>
-    <label>Mot de passe :</label>
-    <input type="password" name="motDePasse"><br><br>
-    <button type="submit">Se connecter</button>
-</form>
+<div class="text-center">
+    <h1 th:text="${erreur}"></h1>
+    <form method="post" th:action="@{/formConnexion}" style="max-width: 350px; margin: 0 auto; margin-top: 100px">
+        <div class="border border-secondary p-3 rounded">
+            <h3>Connexion</h3>
+            <input class="form-control" type="text" name="email" placeholder="Email"><br><br>
+            <input class="form-control" type="password" name="motDePasse" placeholder="Mot de passe"><br><br>
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>
