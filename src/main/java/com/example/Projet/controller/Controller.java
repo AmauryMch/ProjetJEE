@@ -217,7 +217,7 @@ public class Controller {
     }
 
     @PostMapping("/newProgramme")
-    public String NewProgramme(String nom, Model model, HttpSession s) {
+    public String NewProgramme(String nom, HttpSession s) {
         String email = s.getAttribute("email").toString();
         Utilisateur u = utilisateurService.findByEmail(email);
         Programme p = new Programme(null, nom, u, new ArrayList<Activite>(), 0);
@@ -239,7 +239,7 @@ public class Controller {
     }
 
     @PostMapping("/notation")
-    public String notation(String nomAct, int choix, HttpSession s, Model model) {
+    public String notation(String nomAct, int choix, HttpSession s) {
         String email = s.getAttribute("email").toString();
         Utilisateur u = utilisateurService.findByEmail(email);
         Activite a = activiteService.findByNom(nomAct);
