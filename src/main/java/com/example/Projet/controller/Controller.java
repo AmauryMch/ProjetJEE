@@ -95,6 +95,7 @@ public class Controller {
         for (int temp = 0; temp < la.size(); temp++) {
             if (la.get(temp).getNom().equals(nom)) {
                 existe = true;
+                break;
             }
         }
         if (!existe) {
@@ -114,6 +115,7 @@ public class Controller {
         for (int temp = 0; temp < lu.size(); temp++) {
             if (lu.get(temp).getEmail().equals(email)) {
                 existe = true;
+                break;
             }
         }
         if (!existe) {
